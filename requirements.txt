@@ -1,0 +1,37 @@
+# --- Deep Learning & Model Architecture ---
+# PyTorch Core (Standard for ViT/LLM research)
+torch>=2.1.0
+torchvision>=0.16.0
+
+# [cite_start]Hugging Face Ecosystem (For ViT [cite: 10] [cite_start]and Multimodal LLM [cite: 52])
+transformers>=4.36.0
+accelerate>=0.25.0
+tokenizers>=0.15.0
+
+# [cite_start]LoRA & Fine-tuning (Specifically for "Low-rank adaptation" [cite: 10, 37])
+peft>=0.7.0  # Parameter-Efficient Fine-Tuning library
+bitsandbytes>=0.41.0  # Optimization for LLM loading
+
+# --- Baselines & Machine Learning ---
+# [cite_start]For "Random Forests" baseline [cite: 9] and data splitting
+scikit-learn>=1.3.0
+numpy>=1.26.0
+pandas>=2.1.0
+
+# --- Geospatial & OpenStreetMap Data ---
+# [cite_start]For extracting "urban graph from OpenStreetMap" [cite: 17] [cite_start]and building footprints [cite: 13]
+osmnx>=1.8.0
+geopandas>=0.14.0
+shapely>=2.0.0
+
+# [cite_start]For handling "Aerial photography" (USGS) [cite: 14, 19]
+rasterio>=1.3.0
+pillow>=10.0.0
+
+# --- Development & Formatting ---
+# To enforce style guidelines
+black>=23.12.0
+isort>=5.13.0
+pre-commit>=3.6.0
+jupyterlab>=4.0.0  # For the "notebooks" folder
+tqdm>=4.66.0  # Progress bars for training loops
