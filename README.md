@@ -361,24 +361,16 @@ Where:
 
 #### Computed Metrics
 
-The evaluation provides:
+All candidates from every building in every city are pooled into a single
+`(y_true, y_pred_proba)` set, and metrics are computed once on that pool:
 
-1. **Per-Candidate Metrics** (at 0.5 probability threshold):
-   - Accuracy, Precision, Recall, F1, AUROC
+- **Accuracy, Precision, Recall, F1**: reported at the threshold that maximizes
+  F1 over a 0.00–1.00 sweep (step 0.01). If no threshold yields F1 > 0, the
+  values fall back to the threshold=0.5 baseline.
+- **AUROC, AUPR**: threshold-free ranking metrics. Both require y_true to
+  contain both classes; otherwise they are reported as `null`.
 
-2. **Per-Building Metrics**:
-   - Aggregated candidate-level metrics
-   - Count of positive/negative samples
-   - Mean probability assigned to true entrances
-
-3. **Across All True Entrances**:
-   - Mean/std/median probability assigned to true entrance points
-   - Helps judge if the model is confident about real entrances
-
-4. **Distance-Based Metrics**:
-   - Probability-weighted Euclidean distance to closest true entrance
-   - Probability-weighted perimeter distance to closest true entrance
-   - Useful for understanding spatial accuracy
+Per-building entries retain only `n_candidates`, `n_positive`, `n_negative`.
 
 #### Example Usage
 
@@ -436,15 +428,13 @@ Example output structure:
     "total_candidates": 32000,
     "total_positive": 2500,
     "total_negative": 29500,
-    "per_building_avg_metrics": {
-      "accuracy": {"mean": 0.92, "std": 0.08, "min": 0.5, "max": 1.0},
-      "f1": {"mean": 0.85, "std": 0.12, ...},
-      ...
-    },
-    "across_true_entrances": {
-      "mean_prob": 0.87,
-      "median_prob": 0.91,
-      ...
+    "pooled_metrics": {
+      "accuracy": 0.92,
+      "precision": 0.78,
+      "recall": 0.81,
+      "f1": 0.79,
+      "auroc": 0.94,
+      "aupr": 0.82
     }
   }
 }
